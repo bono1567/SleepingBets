@@ -1,0 +1,7 @@
+ScraperFC
+pandas
+numpy
+streamlit
+scikit-learn
+matplotlib
+seaborn
