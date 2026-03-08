@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "RapidAPI Hub - Free API Live Football Data": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.rapidapi.com",
+        "--header",
+        "x-api-host: free-api-live-football-data.p.rapidapi.com",
+        "--header",
+        "x-api-key: 97c4a9a663mshcd69e9a653e60ebp19b99fjsn785d2daebc3f"
+      ]
+    }
+  }
+}
