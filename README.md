@@ -1,56 +1,70 @@
-# ⚽ Football Betting Analysis Dashboard
+# 🏟️ Fantasy PL Claude – Football Data Explorer
 
-Streamlit dashboard powered by **API-Football via RapidAPI**.
+A Python project for exploring football statistics with CSV datasets.  
+Originally built with Streamlit & RapidAPI, this fork provides a local analytical dashboard that works on the cached CSVs produced by `fetch_data.ipynb`.
 
-## Features
+## 🚀 What the `app.py` Dashboard Offers
 
-| Tab | What it does |
-|-----|---|
-| 👥 Player vs Player | Radar + bar chart with 30+ stats, full info cards |
-| 🔍 Similar Players  | Cosine-similarity scouting across selectable feature groups |
-| 🏆 Top N Players    | Ranked leaderboard for any stat, filterable by position |
-| ⚔️ Team Comparison  | Grouped bar or radar comparison + form + recent fixtures |
+When launched with Streamlit, `app.py` presents two main tabs:
 
-## Stats Covered
+### 🎯 Player Analysis
+- **League selector** to narrow the dataset (Top 5 European leagues + "All Leagues").
+- **Customisable feature list**: choose any numeric columns (goals, assists, passes, etc.) or use the built-in defaults.
+- **Similar players** computed by cosine similarity over selected stats (top‑N list with highlight).
+- **Player vs Player comparison** with two visualization modes:
+  - Normalised heatmap showing relative strengths across features.
+  - Raw grouped bar chart for side‑by‑side values.
+- Expandable table showing the raw numbers for the two compared players.
 
-| Category | Stats |
-|---|---|
-| ⚽ Attack | Goals, assists, shots, shot accuracy, penalties |
-| 🎯 Passing | Passes, key passes, pass accuracy % |
-| 🛡️ Defence | Tackles, blocks, interceptions, duels won, fouls |
-| 🔄 Dribbling | Dribbles attempted/success/success % |
-| 🟨 Discipline | Yellow, red, yellow-red cards |
-| ⏱️ Playing time | Appearances, minutes, rating |
+### 🏟️ Team Analysis
+- Pick a league and then a specific team from that league.
+- View the entire squad sorted by any numeric feature, optionally ascending.
+- Interactive table with name, position and key stats; the sorted column is highlighted.
+- **Position breakdown** bar chart when position data is available.
+- **Feature distribution chart** showing how the selected stat is spread across squad members.
 
-## Setup
+The dashboard is generic: it autodetects column names for player, team, position, league and handles missing data gracefully.
 
-### 1. Get a RapidAPI key
-- Sign up at https://rapidapi.com
-- Subscribe to **API-Football**: https://rapidapi.com/api-sports/api/api-football
-- Free tier: **100 requests/day**
-
-### 2. Install
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run
-```bash
-streamlit run app.py
-```
-
-## File Structure
+## 🗂️ Repository Layout
 
 ```
-football_analysis/
-├── app.py           # Streamlit UI (4 tabs)
-├── api_client.py    # API-Football RapidAPI wrapper
-├── analysis.py      # Cosine similarity, top-N, ranking logic
-└── requirements.txt
+.
+├── app.py                    # Streamlit dashboard described above
+├── fetch_data.ipynb          # Notebook for pulling & transforming API data
+├── requirements.txt          # Python dependencies
+├── data/                     # Cached CSV files by league & metric
+│   ├── players_*_per90.csv
+│   ├── players_*_perMatch.csv
+│   ├── players_*_total.csv
+│   └── teams_*.csv
+└── README.md                 # (you’re reading it!)
 ```
 
-## Rate limit tips (free tier: 100 req/day)
+## 🛠️ Setup
 
-- Set **Player pages** to 3–5 in the sidebar (each = 1 request, ~20 players)
-- Data is cached for 1 hour — reloads only when you click Refresh
-- Standings + fixtures = 2 more requests per team viewed
+1. **Create & activate a Python virtualenv**  
+   ```bash
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1   # Windows PowerShell
+   ```
+2. **Install dependencies**  
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. **Run the dashboard**  
+   ```bash
+   streamlit run app.py
+   ```
+
+> ⚠️ The repository now ignores the `.venv` directory; make sure you’ve pulled the latest `.gitignore`.
+
+## 📊 Working with the Data
+
+- Open `fetch_data.ipynb` to see how datasets were generated via API‑Football.
+- All `.csv` files in `data/` can be loaded directly with pandas for analysis or model training.
+
+## 💡 Tips
+
+- The CSVs contain both per‑match/per‑90 stats and season totals – mix & match as needed.
+- League-specific files are named like `players_England_Premier_League_per90.csv`.
+

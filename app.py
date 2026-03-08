@@ -26,7 +26,7 @@ st.set_page_config(
     layout="wide",
 )
 
-DATA_DIR = "./data"
+DATA_DIR = "./.streamlit"
 
 LEAGUES = [
     "England Premier League",
